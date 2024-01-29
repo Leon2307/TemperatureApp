@@ -6,10 +6,5 @@ app = Flask(__name__)
 def main():
     return render_template('temperature_page.html')
 
-@app.get('/content')
-def test():
-    return "{'content': 'Wow' }"
-
-
 if __name__ == '__main__':
     app.run()
