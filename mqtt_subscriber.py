@@ -4,7 +4,7 @@ import json
 
 
 broker = '0.0.0.0'
-port = 8080
+port = 1883
 topic = "weather/mikkeli"
 client_id = 'subscribe-weather-station'
 
@@ -25,7 +25,7 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        msg_json = json.loads(msg)
+        msg_json = json.loads(msg.payload.decode)
         insert_values(msg_json["degree"], msg_json["humidity"], msg_json["location"])
 
     client.subscribe(topic)
