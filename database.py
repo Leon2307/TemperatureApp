@@ -4,14 +4,12 @@ import datetime
 DB_NAME = "temperatureApp.db"
 TABLE_NAME = "temperature"
 
-# Create Database and Table
 def setup():
     execute_with_connection(
         f'CREATE TABLE IF NOT EXISTS {TABLE_NAME} ( id INTEGER PRIMARY KEY AUTOINCREMENT, degree REAL, humidity REAL, timestamp NUMERIC, location TEXT )'
     )
 
-
-def execute_with_connection(query, attributes = None):
+def execute_with_connection(query, attributes=None):
     try:
         con = sqlite3.connect(DB_NAME)
     except:
@@ -19,11 +17,10 @@ def execute_with_connection(query, attributes = None):
     cur = con.cursor()
     if attributes is None:
         cur.execute(query)
-        for x in cur.fetchall():
-            print(x)
-
     else:
         cur.execute(query, attributes)
+    for x in cur.fetchall():
+            print(x)
     con.commit()
     con.close()
 
@@ -61,7 +58,7 @@ def get_latest_temp(location):
         )
     else:
         execute_with_connection(
-            f'SELECT degree FROM {TABLE_NAME} WHERE location = ? HAVING MAX(timestamp)', (location,)
+            f'SELECT degree FROM {TABLE_NAME} WHERE location = ? GROUP BY location HAVING MAX(timestamp)', (location,)
         )
 
 def get_latest_humidity(location):
@@ -71,10 +68,8 @@ def get_latest_humidity(location):
         )
     else:
         execute_with_connection(
-            f'SELECT humidity FROM {TABLE_NAME} WHERE location = ? HAVING MAX(timestamp)', (location,)
+            f'SELECT humidity FROM {TABLE_NAME} WHERE location = ? GROUP BY location HAVING MAX(timestamp)', (location,)
         )
 
 if __name__ == '__main__':
     setup()
-    get_max_temp('abc')
-    # execute_with_connection(f'SELECT * FROM {TABLE_NAME}')
