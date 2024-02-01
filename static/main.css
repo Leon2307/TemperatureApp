@@ -37,3 +37,7 @@ html {
   width: 70px;
   height: 70px;
 }
+
+.transparent {
+    background-color: rgba(50, 50, 50, 0.4);
+}

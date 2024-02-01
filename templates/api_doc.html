@@ -1,5 +1,36 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} 
+
+{% block head %}
+<!--JavaScript-->
+<script src="static/api.js"></script>
+<title>API Documentation</title>
+{% endblock head %}
 
 {% block body %}
-<h1>API Documentation</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <!-- API card -->
+      <div class="card transparent">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="text-success fw-bold fs-3 pe-2">GET</div>
+            <div class="fw-bold fs-3 text-light">Current Temperature</div>
+          </div>
+          <p class="text-success">
+            http://0.0.0.0:5000/currentTemperature?location=Mikkeli
+          </p>
+          <code class="text-light">
+            { <br />
+            "temperature_degree": 30.23, <br />
+            "temperature_fahrenheit": 90.45 <br />
+            }
+          </code>
+        </div>
+      </div>
+      <!-- End API card-->
+    </div>
+  </div>
+</div>
+
 {% endblock body %}
