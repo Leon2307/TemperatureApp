@@ -24,13 +24,12 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        print(f"Received `{msg.payload.decode('utf-8')}` from `{msg.topic}` topic")
         try:
-            msg_json = json.loads(msg.payload.decode)
-            insert_values(msg_json["degree"], msg_json["humidity"], msg_json["location"])
+            msg_json = json.loads(msg.payload.decode('utf-8'))
+            insert_values(msg_json["temperature"], msg_json["humidity"], msg_json["location"])
         except:
             print("Couldn't convert the mqtt message to JSON")
-
     client.subscribe(topic)
     client.on_message = on_message
 

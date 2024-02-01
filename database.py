@@ -14,23 +14,22 @@ def setup():
 def execute_with_connection(query, attributes=None):
     try:
         con = sqlite3.connect(DB_NAME)
-    except sqlite3.Error:
-        print("Connection to DB couldn't be established.")
-        return None
-    cur = con.cursor()
-    try:
+        cur = con.cursor()
         if attributes is None:
             cur.execute(query)
         else:
             cur.execute(query, attributes)
         result = cur.fetchall()
+        con.commit()
+        con.close()
     except sqlite3.OperationalError:
         print("Query could not be executed")
         return None
-    con.commit()
-    con.close()
+    except sqlite3.Error:
+        print("Connection to DB couldn't be established.")
+        return None
     if result == []:
-        result = None 
+        result = None
     return result
 
 
