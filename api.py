@@ -4,10 +4,22 @@ from database import get_latest_temp, get_max_temp, get_min_temp, get_latest_hum
 app = Flask(__name__)
 
 
-# Get Website
+# Load Homepage
 @app.route("/")
 def main():
     return render_template("index.html")
+
+
+# Load API Documentation
+@app.route("/api")
+def api_doc():
+    return render_template("api_doc.html")
+
+
+# Load About page
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 # Get current temperature (e.g. /currentTemperature?location=Mikkeli)
@@ -59,6 +71,12 @@ def current_humidity():
     current_humidity = int(latest_humidity)
     current_humidity_json = f'{{"current_humidity":{current_humidity}}}'
     return current_humidity_json
+
+
+# app name
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
 
 
 if __name__ == "__main__":

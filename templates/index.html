@@ -49,7 +49,7 @@
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Navbar brand -->
-          <a class="navbar-brand mt-2 mt-lg-0" href="#">
+          <a class="navbar-brand mt-2 mt-lg-0" href="/">
             <img
               src="static/cloudy.png"
               height="50"
@@ -60,10 +60,10 @@
           <!-- Left links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item mx-3">
-              <a class="nav-link text-light fs-4 fw-bold" href="#">API</a>
+              <a class="nav-link text-light fs-4 fw-bold" href="api">API</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light fs-4 fw-bold" href="#">About</a>
+              <a class="nav-link text-light fs-4 fw-bold" href="about">About</a>
             </li>
           </ul>
           <!-- Left links -->
@@ -74,6 +74,7 @@
     </nav>
     <!-- Navbar -->
 
+    {% block body %}
     <div class="container">
       <div class="row">
         <!--Weather Card for City-->
@@ -99,5 +100,6 @@
         </div>
       </div>
     </div>
+    {% endblock body %}
   </body>
 </html>
