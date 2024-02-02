@@ -78,28 +78,8 @@
 
     {% block body %}
     <div class="container py-5">
-      <div class="row">
-        <!--Weather Card for City-->
-        <div class="col-md-6 mx-auto">
-          <div class="weather-card">
-            <img
-              src="static/cloudy.png"
-              alt="Weather Icon"
-              class="weather-icon"
-            />
-            <h1 id="city-1" class="fw-bold text-light">City Name</h1>
-            <div class="row mt-4">
-              <div class="col-md-6 text-light">
-                Temperature
-                <p id="temp" class="fs-1 text-light">0°C</p>
-              </div>
-              <div class="col-md-6 text-light">
-                Humidity
-                <p id="humidity" class="fs-1 text-light">0%</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="weather-card-row" class="row">
+        <!-- container for weather cards -->
       </div>
     </div>
     {% endblock body %}
