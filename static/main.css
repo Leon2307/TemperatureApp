@@ -5,19 +5,12 @@ html {
   font-family: "Comfortaa", sans-serif;
 }
 
-.bg-image {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: -1;
-  background-image: url("background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  filter: blur(0px);
+body {
+    background-image: url("background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .navbar {
@@ -38,6 +31,10 @@ html {
   height: 70px;
 }
 
+.api-card {
+    border-radius: 10px;
+}
+
 .transparent {
-    background-color: rgba(50, 50, 50, 0.4);
+    background-color: rgba(50, 50, 50, 0.7);
 }

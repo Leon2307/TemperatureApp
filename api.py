@@ -84,7 +84,6 @@ def current_humidity():
     current_humidity_json = {"current_humidity": current_humidity}
     return jsonify(current_humidity_json)
 
-
 # app name
 @app.errorhandler(404)
 def not_found(e):

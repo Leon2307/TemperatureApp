@@ -2,11 +2,10 @@ from paho.mqtt import client as mqtt_client
 from database import insert_values
 import json
 
-
 broker = '0.0.0.0'
-port = 1883
+port = 5000
 topic = "weather/mikkeli"
-client_id = 'subscribe-weather-station'
+client_id = "subscribe-weather-station"
 
 
 def connect_mqtt() -> mqtt_client:
@@ -26,10 +25,13 @@ def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode('utf-8')}` from `{msg.topic}` topic")
         try:
-            msg_json = json.loads(msg.payload.decode('utf-8'))
-            insert_values(msg_json["temperature"], msg_json["humidity"], msg_json["location"])
+            msg_json = json.loads(msg.payload.decode("utf-8"))
+            insert_values(
+                msg_json["temperature"], msg_json["humidity"], msg_json["location"]
+            )
         except:
             print("Couldn't convert the mqtt message to JSON")
+
     client.subscribe(topic)
     client.on_message = on_message
 
@@ -40,5 +42,5 @@ def run():
     client.loop_forever()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()
