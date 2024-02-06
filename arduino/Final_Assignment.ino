@@ -5,6 +5,18 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 #include <string.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_Sensor.h>
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+#define DHTPIN 14     // Digital pin connected to the DHT sensor
 
 // Wifi settings
 const char* ssid = "MB210-G";
@@ -46,6 +58,14 @@ void setup() {
   mqttClient.setServer(mqtt_server, 1883);
 
   Serial.println("Using array for calculating the sliding average.");
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+  delay(2000);
+  display.clearDisplay();
+  display.setTextColor(WHITE);
 }
 
 // WiFi connection
@@ -175,14 +195,41 @@ void loop() {
   Serial.println(averageHum);
 
   // Convert the average temperature value to a char array and publish it to MQTT
-  String x = "{\"temperature\": " + String(averageTemp) + ", \"humidity\": " + String(averageHum) + ", \"location\": \"Mikkeli\"}";
+  String x = "{\"temperature\": " + String(averageTemp) + ", \"humidity\": " + String(averageHum) + ", \"location\": \"Helsinki\"}";
   
   int len = x.length() + 1;
   char tempstring[len];
   x.toCharArray(tempstring, len);
   Serial.println(x);
-  mqttClient.publish("weather/mikkeli", tempstring);
+  mqttClient.publish("weather", tempstring);
 
+  // clear display
+  display.clearDisplay();
+  
+  // display temperature
+  display.setTextSize(1);
+  display.setCursor(0,0);
+  display.print("Temperature: ");
+  display.setTextSize(2);
+  display.setCursor(0,10);
+  display.print(averageTemp);
+  display.print(" ");
+  display.setTextSize(1);
+  display.cp437(true);
+  display.write(167);
+  display.setTextSize(2);
+  display.print("C");
+  
+  // display humidity
+  display.setTextSize(1);
+  display.setCursor(0, 35);
+  display.print("Humidity: ");
+  display.setTextSize(2);
+  display.setCursor(0, 45);
+  display.print(averageHum);
+  display.print(" %"); 
+
+  display.display(); 
 
   // Sleep X seconds before next measurement
   sleep(2);
