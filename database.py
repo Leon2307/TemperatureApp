@@ -5,12 +5,14 @@ DB_NAME = "temperatureApp.db"
 TABLE_NAME = "temperature"
 
 
+# Function to set up the database table if it doesn't exist
 def setup():
     execute_with_connection(
         f"CREATE TABLE IF NOT EXISTS {TABLE_NAME} ( id INTEGER PRIMARY KEY AUTOINCREMENT, degree REAL, humidity REAL, timestamp NUMERIC, location TEXT )"
     )
 
 
+# Function to execute SQL queries with a database connection
 def execute_with_connection(query, attributes=None):
     try:
         con = sqlite3.connect(DB_NAME)
@@ -33,6 +35,7 @@ def execute_with_connection(query, attributes=None):
     return result
 
 
+# Function to insert temperature and humidity values into the database
 def insert_values(degree, humidity, location):
     time_raw = datetime.datetime.now()
     timestamp = time_raw.strftime("%Y%m%d%H%M%S")
@@ -42,6 +45,7 @@ def insert_values(degree, humidity, location):
     )
 
 
+# Function to get the maximum temperature from the preferred location
 def get_max_temp(location):
     result = None
     if location is None:
@@ -55,6 +59,7 @@ def get_max_temp(location):
     return result[0][0]
 
 
+# Function to get the minimum temperature from the preferred location
 def get_min_temp(location):
     result = None
     if location is None:
@@ -68,6 +73,7 @@ def get_min_temp(location):
     return result[0][0]
 
 
+# Function to get the latest temperature recorded from the preferred location
 def get_latest_temp(location):
     result = None
     if location is None:
@@ -84,6 +90,7 @@ def get_latest_temp(location):
     return result[0][0]
 
 
+# Function to get the latest humidity recorded from the preferred location
 def get_latest_humidity(location):
     result = None
     if location is None:
