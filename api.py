@@ -16,19 +16,13 @@ def api_doc():
     return render_template("api_doc.html")
 
 
-# Load About page
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
 # Get current temperature (e.g. /currentTemperature?location=Mikkeli)
 @app.get("/currentTemperature")
 def current_temp():
     location = request.args.get("location")
     latest_temp = get_latest_temp(location)
     if latest_temp is None:
-        return '{"temperature_degree": null, "temperature_fahrenheit": null}'
+        return jsonify({"temperature_degree": None, "temperature_fahrenheit": None})
     temp_degree = float(latest_temp)
     temp_fahrenheit = 1.8 * temp_degree + 3.0
     temp_fahrenheit = round(temp_fahrenheit, 2)
@@ -45,7 +39,7 @@ def max_temp():
     location = request.args.get("location")
     max_temp = get_max_temp(location)
     if max_temp is None:
-        return '{"temperature_degree": null, "temperature_fahrenheit": null}'
+        return jsonify({"temperature_degree": None, "temperature_fahrenheit": None})
     max_temp_degree = float(max_temp)
     max_temp_fahrenheit = 1.8 * max_temp_degree + 32
     max_temp_fahrenheit = round(max_temp_fahrenheit, 2)
@@ -62,7 +56,7 @@ def min_temp():
     location = request.args.get("location")
     min_temp = get_min_temp(location)
     if min_temp is None:
-        return '{"temperature_degree": null, "temperature_fahrenheit": null}'
+        return jsonify({"temperature_degree": None, "temperature_fahrenheit": None})
     min_temp_degree = float(min_temp)
     min_temp_fahrenheit = 1.8 * min_temp_degree + 32
     min_temp_fahrenheit = round(min_temp_fahrenheit, 2)
@@ -79,7 +73,7 @@ def current_humidity():
     location = request.args.get("location")
     latest_humidity = get_latest_humidity(location)
     if latest_humidity is None:
-        return '{"temperature_degree": null, "temperature_fahrenheit": null}'
+        return jsonify({"temperature_degree": None, "temperature_fahrenheit": None})
     current_humidity = int(latest_humidity)
     current_humidity_json = {"current_humidity": current_humidity}
     return jsonify(current_humidity_json)

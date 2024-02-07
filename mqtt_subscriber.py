@@ -3,8 +3,8 @@ from database import insert_values
 import json
 
 broker = '0.0.0.0'
-port = 5000
-topic = "weather/mikkeli"
+port = 1883
+topic = "weather"
 client_id = "subscribe-weather-station"
 
 

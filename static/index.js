@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         </div>
       </div>`;
   }
-  setInterval(setValues, 3000);
+  setInterval(setValues, 2000);
 });
 
 const setValues = async () => {
