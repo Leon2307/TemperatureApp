@@ -1,4 +1,4 @@
-const ipAdress = "0.0.0.0";
+const ipAdress = "172.20.49.44";
 const port = "5000";
 
 const api = {
